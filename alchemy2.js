@@ -4,48 +4,209 @@ var data = {"status":"OK","usage":"By accessing AlchemyAPI or using information 
 
 $(document).ready(function() {
 
-	var inputDateRange = '2017/01/09 00:00 - 2017/01/16 23:00';
-	var startMoment = moment.utc(inputDateRange.split(' - ')[0], 'YYYY/MM/DD HH:mm');
-	var endMoment = moment.utc(inputDateRange.split(' - ')[1], 'YYYY/MM/DD HH:mm');
-
-	$('input[name="inputDateRange"]').daterangepicker({
-		maxDate: moment.utc().startOf('day').add(23, 'hours'),
-		minDate: moment.utc().add(-60, 'days').startOf('day'),
-		startDate: startMoment,
-		endDate: endMoment,
-		dateLimit: {days: 60},
-		timePicker: true,
-		timePickerIncrement: 60,
-		format: 'YYYY/MM/DD HH:mm',
-		timeZone: '00:00'
-	}
-	);
-
-	$('#inputDateRange').data('daterangepicker').setStartDate(startMoment);
-	$('#inputDateRange').data('daterangepicker').setEndDate(endMoment);
-
-	$('#querySubmit').click(function(){
-		process_click()
-	});
+	// $('#querySubmit').click(function(){
+	// 	process_data(data)
+	// });
 	
+	process_data(data);
 
 });
 
 
 
-function process_click() {
+function process_data(data) {
 	
-	//get date 
-	// input_date = $('#inputDateRange').val();
-	// var start_date = Date.parse(input_date.split(' - ')[0]);
-	// var end_date =  Date.parse(input_date.split(' - ')[1]);
+	// check status as ok
+	if(data.status == "OK"){
+
+	}else{
+		console.log("result is not ok !!!");
+		return;
+	}
 	
-	// console.log(start_date);
-	// console.log(end_date);
+	// console.log(data.result)
 
-	var test = s_util.dom_util.embed_element("div","salman","abc");
+	//check result size
+	if('docs' in data.result){
 
-	console.log(test);
+		var doc_divs = [];
+		var docs = data.result.docs;
+
+		
+
+		// for (var doc_index = 0; doc_index < docs.length; doc_index++) {
+		for (var doc_index = 0; doc_index < 1; doc_index++) {
+
+			console.log("start  doc -- > "+ doc_index);
+
+			var doc = docs[doc_index];
+
+			// ********************
+
+			//title
+			var title = doc.source.enriched.url.title;
+			var div_title = s_util.dom_util.embed_element("div",title,"titlebar1");
+
+
+			// ********************
+
+			//author
+			var author = "Author :" + doc.source.enriched.url.author;
+			var div_author = s_util.dom_util.embed_element("div",author,"introchild");
+
+			//url
+			var url = doc.source.enriched.url.url;
+			var tmp_url = "<a href=" + url + "> Article Link </a>"
+			var div_url = s_util.dom_util.embed_element("div",tmp_url,"introchild");
+
+			// timestamp
+			var timeStamp = " Published Date :" + moment(doc.timestamp*1000).format('YYYY-MM-DD HH:mm');
+			
+
+			var div_timestamp = s_util.dom_util.embed_element("div",timeStamp,"introchild");
+
+			var div_combined = s_util.dom_util.combine_elements([div_author,div_url,div_timestamp]);
+
+			var div_intro = s_util.dom_util.embed_element("div",div_combined,"introbar");
+
+			// ********************
+
+			//sentiment
+			var sentiment_list = [];
+			var docSentimentScore = doc.source.enriched.url.docSentiment.score;
+			var docSentimentType = doc.source.enriched.url.docSentiment.type;
+
+			var sentiment_json = {};
+			
+			sentiment_json['Sentiment-Type'] = docSentimentType;
+			sentiment_json['Sentiment-Intensity'] = docSentimentScore;
+
+			sentiment_list[0] = sentiment_json;
+
+			var div_sentiment_title = s_util.dom_util.embed_element("div","Sentiments","titlebar2");
+
+			var div_sentiment_table = s_util.dom_util.generate_table(sentiment_list);
+			var div_div_sentiment = s_util.dom_util.embed_element("div",div_sentiment_table,"news_table");
+
+			var div_sentiment_combined = s_util.dom_util.combine_elements([div_sentiment_title,div_div_sentiment]);
+
+			var div_Sentiment = s_util.dom_util.embed_element("div",div_sentiment_combined,"item_box");
+
+			// ********************
+
+			//entities 
+			var entities = doc.source.enriched.url.entities;
+			var entites_list = [];
+			for (var i = 0; i < entities.length; i++) {
+				var entity = entities[i];
+				var entity_json = {};
+
+				var entity_name = entity.text;
+				var entity_type = entity.type;
+				var entity_count = entity.count;
+				var entity_relevance = entity.relevance;
+				var entity_sentiment = entity.sentiment.type;
+				var entity_sentiment_intensity = entity.sentiment.score;
+
+				entity_json['Entity-Name'] = entity_name;
+				entity_json['Entity-Type'] = entity_type;
+				entity_json['Entity-Relevance'] = entity_relevance;
+
+				entity_json['Entity-Count'] = entity_count;
+				entity_json['Entity-Sentiment'] = entity_sentiment;
+				entity_json['Sentiment-Intensity'] = entity_sentiment_intensity;
+
+				entites_list[i] = entity_json;
+			}
+
+			var div_entity_title = s_util.dom_util.embed_element("div","Entities","titlebar2");
+
+			var div_entity_table = s_util.dom_util.generate_table(entites_list);
+			var div_div_entity = s_util.dom_util.embed_element("div",div_entity_table,"news_table");
+
+			var div_entity_combined = s_util.dom_util.combine_elements([div_entity_title,div_div_entity]);
+
+			var div_entity = s_util.dom_util.embed_element("div",div_entity_combined,"item_box");
+
+			// ********************
+
+			// concepts
+			var concepts = doc.source.enriched.url.concepts;
+			var concept_list = [];
+			for (var i = 0; i < concepts.length; i++) {
+				var concept = concepts[i];
+				var concept_json = {};
+
+				var concept_name = concept.text;
+				var concept_relevance = concept.relevance;
+
+				concept_json['Concept-Name'] = concept_name;
+				concept_json['Concept-Relevance'] = concept_relevance;
+
+				concept_list[i] = concept_json;
+
+			}
+
+			var div_concept_title = s_util.dom_util.embed_element("div","Concepts","titlebar2");
+
+			var div_concept_table = s_util.dom_util.generate_table(concept_list);
+			var div_div_concept = s_util.dom_util.embed_element("div",div_concept_table,"news_table");
+
+			var div_concept_combined = s_util.dom_util.combine_elements([div_concept_title,div_div_concept]);
+
+			var div_concept = s_util.dom_util.embed_element("div",div_concept_combined,"item_box");
+
+			// ********************
+
+			// taxonomy
+			var taxonomies = doc.source.enriched.url.taxonomy;
+			var taxonomy_list = [];	
+			for (var i = 0; i < taxonomies.length; i++) {
+				var taxonomy = taxonomies[i];
+				var taxonomy_json = {};
+
+				var taxonomy_name = taxonomy.label;
+				var taxonomy_relevance = taxonomy.score;
+
+				taxonomy_json['Taxonomy'] = taxonomy_name;
+				taxonomy_json['Relevance'] = taxonomy_relevance;
+
+				taxonomy_list[i] = taxonomy_json;
+			}
+
+			var div_taxonomy_title = s_util.dom_util.embed_element("div","Taxonomy","titlebar2");
+
+			var div_taxonomy_table = s_util.dom_util.generate_table(taxonomy_list);
+			var div_div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_table,"news_table");
+
+			var div_taxonomy_combined = s_util.dom_util.combine_elements([div_taxonomy_title,div_div_taxonomy]);
+
+			var div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_combined,"item_box");
+
+			// ********************
+
+			var combined_inner_doc_div = s_util.dom_util.combine_elements([div_title,div_intro,div_Sentiment,div_entity,div_concept,div_taxonomy]);
+			// var combined_inner_doc_div = s_util.dom_util.combine_elements([div_title,div_intro]);
+			var div_doc = s_util.dom_util.embed_element("div",combined_inner_doc_div,"l3");
+
+			doc_divs[doc_index] = div_doc;
+
+
+			console.log("done with doc -- > "+ doc_index);
+
+		}
+
+		var div_docs = s_util.dom_util.combine_elements(doc_divs);
+
+		$("#cards").html(div_docs);
+
+		console.log("done processing !!!")
+	}else{
+		console.log("docs not Present !!!");
+		return;
+	}
+
+	
 
 
 }
