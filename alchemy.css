@@ -1,0 +1,79 @@
+.l1 {
+    border: 1px solid;
+    margin: 5px;
+}
+
+.l2 {
+    border: 1px solid;
+    margin: 10px;
+    padding: 10px
+}
+
+.l3 {
+    border: 1px solid;
+}
+
+.titlebar1{
+	border: 1px solid;
+	margin: 10px;
+	text-decoration: underline;
+	text-align: center;
+	font-size: 130%;
+}
+
+.titlebar2{
+	border: 1px solid;
+	margin: 2px;
+	text-align: center;
+	font-size: 100%;
+	margin: 5px;
+}
+
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr:nth-child(even){
+	background-color: #f2f2f2;
+}
+
+tr:hover {
+	background-color: #ddd;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.introbar{
+    overflow:auto;
+    border: 1px solid;
+    margin: 10px;
+}
+
+.news_table{
+	margin: 5px;
+	border: 1px solid;
+}
+
+.item_box{
+	border: 1px solid;
+	margin: 10px;
+}
+
+.introchild{
+	float:left; 
+    width:33%; 
+    text-align: center;
+}
