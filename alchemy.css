@@ -15,10 +15,16 @@
     /*background-color: #9B7D77*/
 }
 
+.analysis {
+    border: 1px solid;
+    margin: 10px;
+    /*background-color: #9B7D77*/
+}
+
 .titlebar1{
 	border: 1px solid;
 	margin: 10px;
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 	text-align: center;
 	font-size: 130%;
 }
@@ -76,6 +82,7 @@ th {
 
 .introchild{
 	float:left; 
-    width:33%; 
+    width:24%; 
     text-align: center;
+    margin: 2px;
 }

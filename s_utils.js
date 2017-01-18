@@ -1,9 +1,18 @@
 var dom_mani = function(){
 
 
-	var embed_element = function(tagName,dataContent,className){
+	var embed_element = function(tagName,dataContent,attributes){
 
-		return "<"+ tagName + " class=" + className+ ">" + dataContent+ "</" + tagName + ">";
+		var attributes_names = Object.keys(attributes);
+
+		var attributes_string ="";
+		for (var i = 0; i < attributes_names.length; i++) {
+			attribute_name = attributes_names[i];
+			attribute_value = attributes[attribute_name];
+			attributes_string = attributes_string + " " + attribute_name + " = \"" + attribute_value +"\"";
+		}
+
+		return "<"+ tagName + attributes_string + ">" + dataContent+ "</" + tagName + ">";
 
 	};
 

@@ -34,40 +34,46 @@ function process_data(data) {
 
 		
 
-		// for (var doc_index = 0; doc_index < docs.length; doc_index++) {
-		for (var doc_index = 0; doc_index < 1; doc_index++) {
+		for (var doc_index = 0; doc_index < docs.length; doc_index++) {
+		// for (var doc_index = 0; doc_index < 1; doc_index++) {
 
 			console.log("start  doc -- > "+ doc_index);
 
 			var doc = docs[doc_index];
 
+			//get id;
+			var _id = doc.id;
+			var id_sentiment_div = "sentiment" + _id;
+
 			// ********************
 
 			//title
 			var title = doc.source.enriched.url.title;
-			var div_title = s_util.dom_util.embed_element("div",title,"titlebar1");
+			var div_title = s_util.dom_util.embed_element("div",title,{"class":"titlebar1"});
 
 
 			// ********************
 
 			//author
 			var author = "Author :" + doc.source.enriched.url.author;
-			var div_author = s_util.dom_util.embed_element("div",author,"introchild");
+			var div_author = s_util.dom_util.embed_element("div",author,{"class":"introchild"});
 
 			//url
 			var url = doc.source.enriched.url.url;
 			var tmp_url = "<a href=" + url + "> Article Link </a>"
-			var div_url = s_util.dom_util.embed_element("div",tmp_url,"introchild");
+			var div_url = s_util.dom_util.embed_element("div",tmp_url,{"class":"introchild"});
 
 			// timestamp
 			var timeStamp = " Published Date :" + moment(doc.timestamp*1000).format('YYYY-MM-DD HH:mm');
-			
+			var div_timestamp = s_util.dom_util.embed_element("div",timeStamp,{"class":"introchild"});
 
-			var div_timestamp = s_util.dom_util.embed_element("div",timeStamp,"introchild");
+			// show nlp
+			var show_nlp_button = s_util.dom_util.embed_element("button","Perform NLP on this article",{"class":"btn btn-info","data-toggle":"collapse","data-target":"#"+id_sentiment_div});
+			var div_nlp_button = s_util.dom_util.embed_element("div",show_nlp_button,{"class":"introchild"});
 
-			var div_combined = s_util.dom_util.combine_elements([div_author,div_url,div_timestamp]);
+			var div_combined = s_util.dom_util.combine_elements([div_author,div_url,div_timestamp,div_nlp_button]);
 
-			var div_intro = s_util.dom_util.embed_element("div",div_combined,"introbar");
+			var div_intro = s_util.dom_util.embed_element("div",div_combined,{"class":"introbar"});
 
 			// ********************
 
@@ -83,14 +89,14 @@ function process_data(data) {
 
 			sentiment_list[0] = sentiment_json;
 
-			var div_sentiment_title = s_util.dom_util.embed_element("div","Sentiments","titlebar2");
+			var div_sentiment_title = s_util.dom_util.embed_element("div","Sentiment of this article",{"class":"titlebar2"});
 
 			var div_sentiment_table = s_util.dom_util.generate_table(sentiment_list);
-			var div_div_sentiment = s_util.dom_util.embed_element("div",div_sentiment_table,"news_table");
+			var div_div_sentiment = s_util.dom_util.embed_element("div",div_sentiment_table,{"class":"news_table"});
 
 			var div_sentiment_combined = s_util.dom_util.combine_elements([div_sentiment_title,div_div_sentiment]);
 
-			var div_Sentiment = s_util.dom_util.embed_element("div",div_sentiment_combined,"item_box");
+			var div_Sentiment = s_util.dom_util.embed_element("div",div_sentiment_combined,{"class":"item_box"});
 
 			// ********************
 
@@ -119,14 +125,14 @@ function process_data(data) {
 				entites_list[i] = entity_json;
 			}
 
-			var div_entity_title = s_util.dom_util.embed_element("div","Entities","titlebar2");
+			var div_entity_title = s_util.dom_util.embed_element("div","Entities mentioned in this article",{"class":"titlebar2"});
 
 			var div_entity_table = s_util.dom_util.generate_table(entites_list);
-			var div_div_entity = s_util.dom_util.embed_element("div",div_entity_table,"news_table");
+			var div_div_entity = s_util.dom_util.embed_element("div",div_entity_table,{"class":"news_table"});
 
 			var div_entity_combined = s_util.dom_util.combine_elements([div_entity_title,div_div_entity]);
 
-			var div_entity = s_util.dom_util.embed_element("div",div_entity_combined,"item_box");
+			var div_entity = s_util.dom_util.embed_element("div",div_entity_combined,{"class":"item_box"});
 
 			// ********************
 
@@ -147,14 +153,14 @@ function process_data(data) {
 
 			}
 
-			var div_concept_title = s_util.dom_util.embed_element("div","Concepts","titlebar2");
+			var div_concept_title = s_util.dom_util.embed_element("div","Topics mentioned in this article",{"class":"titlebar2"});
 
 			var div_concept_table = s_util.dom_util.generate_table(concept_list);
-			var div_div_concept = s_util.dom_util.embed_element("div",div_concept_table,"news_table");
+			var div_div_concept = s_util.dom_util.embed_element("div",div_concept_table,{"class":"news_table"});
 
 			var div_concept_combined = s_util.dom_util.combine_elements([div_concept_title,div_div_concept]);
 
-			var div_concept = s_util.dom_util.embed_element("div",div_concept_combined,"item_box");
+			var div_concept = s_util.dom_util.embed_element("div",div_concept_combined,{"class":"item_box"});
 
 			// ********************
 
@@ -174,20 +180,24 @@ function process_data(data) {
 				taxonomy_list[i] = taxonomy_json;
 			}
 
-			var div_taxonomy_title = s_util.dom_util.embed_element("div","Taxonomy","titlebar2");
+			var div_taxonomy_title = s_util.dom_util.embed_element("div","Classification of this article",{"class":"titlebar2"});
 
 			var div_taxonomy_table = s_util.dom_util.generate_table(taxonomy_list);
-			var div_div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_table,"news_table");
+			var div_div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_table,{"class":"news_table"});
 
 			var div_taxonomy_combined = s_util.dom_util.combine_elements([div_taxonomy_title,div_div_taxonomy]);
 
-			var div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_combined,"item_box");
+			var div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_combined,{"class":"item_box"});
 
 			// ********************
 
-			var combined_inner_doc_div = s_util.dom_util.combine_elements([div_title,div_intro,div_Sentiment,div_entity,div_concept,div_taxonomy]);
-			// var combined_inner_doc_div = s_util.dom_util.combine_elements([div_title,div_intro]);
-			var div_doc = s_util.dom_util.embed_element("div",combined_inner_doc_div,"l3");
+			var div_combined_analysis = s_util.dom_util.combine_elements([div_Sentiment,div_entity,div_concept,div_taxonomy]);
+			var div_div_combined_analysis = s_util.dom_util.embed_element("div",div_combined_analysis,{"class":"analysis collapse","id":id_sentiment_div});
+
+			// ************************
+
+			var combined_inner_doc_div = s_util.dom_util.combine_elements([div_title,div_intro,div_div_combined_analysis]);
+			var div_doc = s_util.dom_util.embed_element("div",combined_inner_doc_div,{"class":"l3"});
 
 			doc_divs[doc_index] = div_doc;
 
