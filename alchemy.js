@@ -4,7 +4,21 @@ var data = {"status":"OK","usage":"By accessing AlchemyAPI or using information 
 
 $(document).ready(function() {
 
-	var inputDateRange = '2017/01/09 00:00 - 2017/01/16 23:00';
+	init_date_picker();
+
+
+
+	$('#querySubmit').click(function(){
+		console.log(get_time().start);
+		console.log(get_time().end);
+	});
+	
+
+});
+
+function init_date_picker(){
+
+	var inputDateRange = '2017/01/09 00:00 - 2017/01/19 23:00';
 	var startMoment = moment.utc(inputDateRange.split(' - ')[0], 'YYYY/MM/DD HH:mm');
 	var endMoment = moment.utc(inputDateRange.split(' - ')[1], 'YYYY/MM/DD HH:mm');
 
@@ -24,29 +38,25 @@ $(document).ready(function() {
 	$('#inputDateRange').data('daterangepicker').setStartDate(startMoment);
 	$('#inputDateRange').data('daterangepicker').setEndDate(endMoment);
 
-	$('#querySubmit').click(function(){
-		process_click()
-	});
-	
-
-});
+}
 
 
 
-function process_click() {
+function get_time() {
 	
 	//get date 
-	// input_date = $('#inputDateRange').val();
-	// var start_date = Date.parse(input_date.split(' - ')[0]);
-	// var end_date =  Date.parse(input_date.split(' - ')[1]);
+	input_date = $('#inputDateRange').val();
+
+	var start_date = moment.utc(input_date.split(' - ')[0],'YYYY/MM/DD HH:mm').unix();
+	var end_date =  moment.utc(input_date.split(' - ')[1],'YYYY/MM/DD HH:mm').unix();
 	
 	// console.log(start_date);
 	// console.log(end_date);
 
-	var test = s_util.dom_util.embed_element("div","salman","abc");
-
-	console.log(test);
-
+	return {
+		start : start_date,
+		end : end_date
+	}
 
 }
 
