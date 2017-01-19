@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- bootstrap and css -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
-<!-- Include Date Range Picker -->
-<script src="moment.js"></script>
-<script type="text/javascript" src="daterangepicker.js"></script>
-<link rel="stylesheet" type="text/css" href="daterangepicker.css" />
+	<!-- Date Range Picker -->
+	<script src="moment.js"></script>
+	<script type="text/javascript" src="daterangepicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="daterangepicker.css" />
 
-<link rel="stylesheet" href="alchemy.css">
-<script src="s_utils.js"></script>
-<script src="alchemy.js"></script>
+
+	<!-- my library -->
+	<script src="s_utils.js"></script>
+
+	<!-- this project specific -->
+	<link rel="stylesheet" href="alchemy.css">
+	<script src="alchemy.js"></script>
+
 </head>
 <body>
-<div class="l1">
+	<div class="l1">
 
-	<div class="l2">
-		<h1 align="center">IVP Search Engine</h1>
-	</div>
+		<div class="l2"> <h1 align="center">IVP Search Engine</h1> </div>
 
-	<div class="l2">
-		
-			
+		<div class="l2">
 			<div class="step-one-container">
 				<div class="find-container col-xs-12">
 
@@ -40,27 +42,27 @@
 						<div class="col-xs-3"></div>
 						<div class="col-xs-3">where</div>
 						<input id="inputEntity" type="text" name="inputEntity"
-							placeholder="IBM" value="IBM" class="input-sm">
+						placeholder="IBM" value="IBM" class="input-sm">
 					</div>
 
 					<div class="row">
 						<div class="col-xs-3"></div>
 						<div class="col-xs-3">is mentioned</div>
 						<select id="selectEntityType" name="selectEntityType"
-							class="input-sm"><option value="free text">anywhere</option>
-							<option value="person">as a Person</option>
-							<option value="city">as a City</option>
-							<option value="company" selected="selected">as a Company</option>
-							<option value="organization">as an Organization</option></select>
+						class="input-sm"><option value="free text">anywhere</option>
+						<option value="person">as a Person</option>
+						<option value="city">as a City</option>
+						<option value="company" selected="selected">as a Company</option>
+						<option value="organization">as an Organization</option></select>
 					</div>
 					<div class="row">
 						<div class="col-xs-3"></div>
 						<div class="col-xs-3">and the Sentiment is</div>
 						<select id="selectSentiment" name="selectSentiment"
-							class="input-sm"><option value="any">Any</option>
-							<option value="positive" selected="selected">Positive</option>
-							<option value="negative">Negative</option>
-							<option value="neutral">Neutral</option></select>
+						class="input-sm"><option value="any">Any</option>
+						<option value="positive" selected="selected">Positive</option>
+						<option value="negative">Negative</option>
+						<option value="neutral">Neutral</option></select>
 					</div>
 					<div class="row">
 						<div class="col-xs-3"></div>
@@ -89,120 +91,28 @@
 							<option value="style and fashion">Style and Fashion</option>
 							<option value="technology and computing" selected="selected">Technology and Computing</option>
 							<option value="travel">Travel</option></select>
+						</div>
+
 					</div>
+
+					<div class="row"><div class="col-xs-3"><br /></div></div>
+
+					<div class="row text-center">
+						<button id="querySubmit" class="btn btn-info">Search !!!</button>
+					</div>
+
 					
+
 				</div>
-
-				<div class="row"><div class="col-xs-3"><br /></div></div>
-
-				<div class="row text-center">
-					<button id="querySubmit" class="btn btn-info">Search !!!</button>
-				</div>
-
-				
 
 			</div>
-		
-	</div>
 
+			<!-- will populate news here -->
+			<div class="l2" id="news_div"> </div>
 
-	<div class="l2" >
-
-		<div class="l3">
-			<!-- this is title -->
-			<div class="titlebar1">IBM Watson, FDA to explore blockchain for secure patient data exchange - CIO East Africa</div>
-
-			<!-- author, url , publishdate -->
-			 <div class="introbar">
-				<div class="introchild">Author : Salman</div>
-				<div class="introchild"><a href="http://www.cio.co.ke/news/world-news/ibm-watson,-fda-to-explore-blockchain-for-secure-patient-data-exchange">Article Link</a></div>
-				<div class="introchild">Published on : 14/05/2016</div>
-			</div> 
-
-			<!-- sentiments -->
-			<div class = "item_box">
-				<div class="titlebar2">Sentiments</div>
-				<div class="news_table">
-					<table>
-						<tr>
-							<th>Sentiment</th>
-							<th>Sentiment-Intensity</th>
-						</tr>
-						<tr>
-							<td>positive</td>
-							<td>0.431661993</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-
-			<!-- entities -->
-			<div class = "item_box">
-				<div class="titlebar2">Entities</div>
-				<div class="news_table">
-					<table>
-						<tr>
-							<th>Entity-Name</th>
-							<th>Entity-Tpe</th>
-							<th>Entity-Relevance</th>
-							<th>Entity-Count</th>
-							<th>Entity-Sentiment</th>
-							<th>Sentiment-Intensity</th>
-						</tr>
-						<tr>
-							<td>genomic data</td>
-							<td>FieldTerminology</td>
-							<td>0.942853987</td>
-							<td>9</td>
-							<td>positive</td>
-							<td>0.531729996</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-
-
-			<!-- concepts -->
-			<div class = "item_box">
-				<div class="titlebar2">Concepts</div>
-				<div class="news_table">
-					<table>
-						<tr>
-							<th>Concept-Name</th>
-							<th>Relevance</th>
-						</tr>
-						<tr>
-							<td>Electronic medical record</td>
-							<td>0.431661993</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-
-			<!-- taxonomy -->
-			<div class = "item_box">
-				<div class="titlebar2">Taxonomy</div>
-				<div class="news_table">
-					<table>
-						<tr>
-							<th>Taxonomy</th>
-							<th>Relevance</th>
-						</tr>
-						<tr>
-							<td>technology and computing</td>
-							<td>0.431661993</td>
-						</tr>
-					</table>
-				</div>
-			</div>
 
 		</div>
-
-	</div>
-
-
-</div>
-</body>
+	</body>
 </html>
 
 
