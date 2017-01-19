@@ -37,6 +37,30 @@
 	margin: 5px;
 }
 
+.introbar{
+    overflow:auto;
+    border: 1px solid;
+    margin: 10px;
+}
+
+.news_table{
+    margin: 5px;
+    border: 1px solid;
+}
+
+.item_box{
+    border: 1px solid;
+    margin: 10px;
+}
+
+.introchild{
+    float:left; 
+    width:24%; 
+    text-align: center;
+    margin: 2px;
+}
+
+
 .news_table table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -64,25 +88,3 @@
     color: white;*/
 }
 
-.introbar{
-    overflow:auto;
-    border: 1px solid;
-    margin: 10px;
-}
-
-.news_table{
-	margin: 5px;
-	border: 1px solid;
-}
-
-.item_box{
-	border: 1px solid;
-	margin: 10px;
-}
-
-.introchild{
-	float:left; 
-    width:24%; 
-    text-align: center;
-    margin: 2px;
-}
