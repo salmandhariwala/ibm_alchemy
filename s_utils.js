@@ -70,6 +70,5 @@ var dom_mani = function(){
 
 
 s_util = {
-	dom_util : dom_mani,
-	service_util : null
+	dom_util : dom_mani
 }
