@@ -1,3 +1,17 @@
+https://access.alchemyapi.com/calls/data/GetNews?apikey=318afcbce7a6f92f3faf83dc03b38d20b3d9b8ed&return=enriched.url.title,enriched.url.url,enriched.url.author,enriched.url.publicationDate,enriched.url.entities,enriched.url.docSentiment,enriched.url.concepts,enriched.url.taxonomy&start=1479686400&end=1484611200&q.enriched.url.text=Indus%20valley%20partners&count=25&outputMode=json
+
+
+==================
+
+https://access.alchemyapi.com/calls/data/GetNews?apikey=318afcbce7a6f92f3faf83dc03b38d20b3d9b8ed&return=enriched.url.title,enriched.url.url,enriched.url.author,enriched.url.publicationDate,enriched.url.entities,enriched.url.docSentiment,enriched.url.concepts,enriched.url.taxonomy&start=1479686400&end=1484611200&q.enriched.url.entities.entity=|text=Indus%20valley%20partners,type=person|&q.enriched.url.docSentiment.type=positive&q.enriched.url.taxonomy.taxonomy_.label=technology%20and%20computing&count=25&outputMode=json
+
+
+
+
+
+
+
+
 https://access.alchemyapi.com/calls/data/GetNews?apikey=YOUR_API_KEY_HERE
 &return=
 enriched.url.title,
