@@ -88,3 +88,39 @@
     color: white;*/
 }
 
+.search_guide_text{
+    border: 1px solid;
+    padding: 8px;
+    margin: 10px;
+}
+
+.search_guide_input_text{
+    border: 1px solid;
+    padding: 8px;
+    margin: 10px;
+}
+
+.search_guide_input_select{
+    border: 1px solid;
+    padding: 8px;
+    margin: 10px;
+}
+
+.search_guide_button{
+
+}
+
+.search_guide_button_div{
+    border: 1px solid;
+    padding: 8px;
+    margin: 10px;
+    text-align: center;
+}
+
+.search_guide_intro_div{
+    border: 1px solid;
+    padding: 8px;
+    margin: 10px;
+    text-align: left;
+}
+
