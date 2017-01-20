@@ -45,6 +45,37 @@ function get_time() {
 function search_button_click_listener(){
 	var inputs = grap_inputs();
 	console.log(inputs);
+	var link = make_link(inputs);
+	// console.log(link);
+}
+
+// this function will create link from inputs
+function make_link(inputs){
+	var api_key="apikey";
+
+	var params = {
+		"apikey":api_key,
+		"return":['enriched.url.title','enriched.url.url',"enriched.url.author","enriched.url.entities","enriched.url.docSentiment","enriched.url.concepts","enriched.url.taxonomy"],
+		"start":inputs.startTime.toString(),
+		"end":inputs.endTime.toString(),
+		"q.enriched.url.entities.entity":{
+			"text":inputs.searchItem,
+			"type":inputs.mentionedAs
+		},
+		"q.enriched.url.docSentiment.type":inputs.sentiment,
+		"q.enriched.url.taxonomy.taxonomy_.label":inputs.taxonomy,
+		"count":25,
+		"outputMode":"json"
+	}
+
+	// console.log($.param(params,true));
+
+	console.log($(params).serialize());
+
+
+
+	return "template";
+
 }
 
 // this function will generate html from service data

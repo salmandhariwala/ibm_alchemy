@@ -32,3 +32,21 @@ enriched.url.taxonomy
 &q.enriched.url.taxonomy.taxonomy_.label=technology%20and%20computing
 &count=25
 &outputMode=json
+
+
+===========
+
+
+{"return":["enriched.url.title,enriched.url.url","enriched.url.author","enriched.url.entities","enriched.url.docSentiment","enriched.url.concepts","enriched.url.taxonomy"]}
+
+https://access.alchemyapi.com/calls/data/GetNews?apikey=apikey&return=enric…Date,enriched.url.entities,enriched.url.docSentiment,enriched.url.concepts, enriched.url.taxonomy&start=1484095560&end=1484959560&q.enriched.url.entities.entity=|text=kk,type=company| &q.enriched.url.docSentiment.type=positive&q.enriched.url.taxonomy.taxonomy_.label=technology and computing&count=25&outputMode=json
+
+1) api key
+2) start time (startTime)
+3) end time (endTime)
+4) text (searchItem)
+5) type (mentionedAs)
+6) sentiment (sentiment)
+7) taxonomy (taxonomy)
+
+https://access.alchemyapi.com/calls/data/GetNews?apikey=*apikey&return=enriched.url.title,enriched.url.url, enriched.url.author,enriched.url.publicationDate,enriched.url.entities,enriched.url.docSentiment,enriched.url.concepts, enriched.url.taxonomy&start=*startTime&end=*endTime&q.enriched.url.entities.entity=|text=*text,type=*type| &q.enriched.url.docSentiment.type=*sentiment&q.enriched.url.taxonomy.taxonomy_.label=*taxonomy&count=25&outputMode=json
