@@ -43,8 +43,8 @@ function get_time() {
 
 // this function will handle search button click
 function search_button_click_listener(){
-	console.log(get_time().start);
-	console.log(get_time().end);
+	var inputs = grap_inputs();
+	console.log(inputs);
 }
 
 // this function will generate html from service data
@@ -272,6 +272,38 @@ function generate_html_from_data(data) {
 		console.log("docs not Present !!!");
 		return;
 	}
+}
+
+// grep all inputs from form
+function grap_inputs(){
+
+	//start time
+	var startTime =get_time().start;
+
+	// end time
+	var endTime = get_time().end;
+
+	//search query
+	var searchItem = $("#inputEntity").val();
+
+	// mentioned as
+	var mentionedAs = $('#selectEntityType').val();
+
+	// sentiment
+	var sentiment = $('#selectSentiment').val();
+
+	// taxonomu
+	var taxonomy = $('#selectCategory').val();
+
+	return{
+		"startTime":startTime,
+		"endTime": endTime,
+		"searchItem":searchItem,
+		"mentionedAs":mentionedAs,
+		"sentiment":sentiment,
+		"taxonomy":taxonomy
+	}
+
 }
 
 // main function execution will start from here on dom ready
