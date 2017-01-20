@@ -4,10 +4,6 @@ var sample_data_1 = {"status":"OK","usage":"By accessing AlchemyAPI or using inf
 // this function will initialize date picker
 function init_date_picker(){
 
-	var inputDateRange = '2017/01/09 00:00 - 2017/01/19 23:00';
-	var startMoment = moment.utc(inputDateRange.split(' - ')[0], 'YYYY/MM/DD HH:mm');
-	var endMoment = moment.utc(inputDateRange.split(' - ')[1], 'YYYY/MM/DD HH:mm');
-
 	$('input[name="inputDateRange"]').daterangepicker({
 		maxDate: moment.utc().startOf('day').add(23, 'hours'),
 		minDate: moment.utc().add(-60, 'days').startOf('day'),
@@ -20,6 +16,9 @@ function init_date_picker(){
 		timeZone: '00:00'
 	}
 	);
+
+	var startMoment = moment().subtract(10, "days");
+	var endMoment = moment();
 
 	$('#inputDateRange').data('daterangepicker').setStartDate(startMoment);
 	$('#inputDateRange').data('daterangepicker').setEndDate(endMoment);
