@@ -3,6 +3,13 @@ var dom_mani = function(){
 
 	var embed_element = function(tagName,dataContent,attributes){
 
+		var attributes_string =generate_attribute_string(attributes);
+
+		return "<"+ tagName + attributes_string + ">" + dataContent+ "</" + tagName + ">";
+
+	};
+
+	var generate_attribute_string = function(attributes){
 		var attributes_names = Object.keys(attributes);
 
 		var attributes_string ="";
@@ -12,9 +19,8 @@ var dom_mani = function(){
 			attributes_string = attributes_string + " " + attribute_name + " = \"" + attribute_value +"\"";
 		}
 
-		return "<"+ tagName + attributes_string + ">" + dataContent+ "</" + tagName + ">";
-
-	};
+		return attributes_string;
+	}
 
 	var combine_elements = function(elements){
 		var result_to_return = "";
@@ -27,9 +33,11 @@ var dom_mani = function(){
 
 	};
 
-	var generate_table = function(data){
+	var generate_table = function(data,attributes){
 
-		var result_to_return = "<table>";
+		var attributes_string =generate_attribute_string(attributes);
+
+		var result_to_return = "<table "+ attributes_string +"><thead>";
 
 		var keys = Object.keys(data[0]);
 
@@ -38,6 +46,8 @@ var dom_mani = function(){
 			result_to_return = result_to_return + "<th>"+ keys[i] + "</th>";
 		}
 		result_to_return = result_to_return + "</tr>";
+		result_to_return = result_to_return + "</thead>";
+		result_to_return = result_to_return + "<tbody>";
 
 		for (var i = 0; i < data.length; i++) {
 
@@ -53,7 +63,7 @@ var dom_mani = function(){
 
 		};
 
-		result_to_return = result_to_return +"</table>"
+		result_to_return = result_to_return +"</tbody></table>"
 		return result_to_return;
 
 	};
