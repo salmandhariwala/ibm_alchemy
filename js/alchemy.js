@@ -58,8 +58,8 @@ function search_button_click_listener(){
 		// console.log(link);
 
 		// make ajax request to ibm server
-		// make_ajax_request(link);
-		ajax_callback_success(sample_data_1);
+		make_ajax_request(link);
+		// ajax_callback_success(sample_data_1);
 	}
 	
 }
@@ -141,6 +141,11 @@ function make_link(inputs){
 
 }
 
+function error_handle_show_demo_data(){
+	show_dailog("something went wrong !!!","Hello user something went wrong.Probably daily limit of api exceeds ! showing DEMO data for time being :)");
+	ajax_callback_success(sample_data_1);
+}
+
 // this function will generate html from service data
 function generate_html_from_data(data) {
 
@@ -151,6 +156,8 @@ function generate_html_from_data(data) {
 
 	}else{
 		console.log("result is not ok !!!");
+		console.log(data);
+		error_handle_show_demo_data();
 		return;
 	}
 	
@@ -190,33 +197,33 @@ function generate_html_from_data(data) {
 
 			//get title and generate div of title
 			var title = doc.source.enriched.url.title;
-			var div_title = s_util.dom_util.embed_element("div",title,{"class":"titlebar1"});
+			var div_title = s_util.dom_util.embed_element("div",title,{"class":"news_title"});
 
 
 			// ********************
 
 			//get author and generate div of author
 			var author = "Author :" + doc.source.enriched.url.author;
-			var div_author = s_util.dom_util.embed_element("div",author,{"class":"introchild"});
+			var div_author = s_util.dom_util.embed_element("div",author,{"class":"news_tag"});
 
 			// get url and generate div of url
 			var url = doc.source.enriched.url.url;
 			var tmp_url = "<a href=" + url + "> Article Link </a>"
-			var div_url = s_util.dom_util.embed_element("div",tmp_url,{"class":"introchild"});
+			var div_url = s_util.dom_util.embed_element("div",tmp_url,{"class":"news_tag"});
 
 			// get time of article publish and generate div of time
 			var timeStamp = " Published Date :" + moment(doc.timestamp*1000).format('YYYY-MM-DD HH:mm');
-			var div_timestamp = s_util.dom_util.embed_element("div",timeStamp,{"class":"introchild"});
+			var div_timestamp = s_util.dom_util.embed_element("div",timeStamp,{"class":"news_tag"});
 
 			// generate nlp button 
-			var show_nlp_button = s_util.dom_util.embed_element("button","Perform NLP on this article",{"class":"btn btn-info","data-toggle":"collapse","data-target":"#"+id_sentiment_div});
-			var div_nlp_button = s_util.dom_util.embed_element("div",show_nlp_button,{"class":"introchild"});
+			var show_nlp_button = s_util.dom_util.embed_element("button","Perform NLP on this article",{"class":"btn btn-warning","data-toggle":"collapse","data-target":"#"+id_sentiment_div});
+			var div_nlp_button = s_util.dom_util.embed_element("div",show_nlp_button,{"class":"news_tag"});
 
 			// combine author title time url and button in one div
 			var div_combined = s_util.dom_util.combine_elements([div_author,div_url,div_timestamp,div_nlp_button]);
 
 			// embed this combined tag in div
-			var div_intro = s_util.dom_util.embed_element("div",div_combined,{"class":"introbar"});
+			var div_intro = s_util.dom_util.embed_element("div",div_combined,{"class":"news_tag_bar"});
 
 			// ********************
 
@@ -230,16 +237,16 @@ function generate_html_from_data(data) {
 			var sentiment_list = [{'Sentiment-Type':docSentimentType,'Sentiment-Intensity':docSentimentScore}];
 
 			// generate div of title of sentiment data
-			var div_sentiment_title = s_util.dom_util.embed_element("div","Sentiment of this article",{"class":"titlebar2"});
+			var div_sentiment_title = s_util.dom_util.embed_element("div","Sentiment of this article",{"class":"nlp_heading"});
 
 			// generate html of table
 			var div_sentiment_table = s_util.dom_util.generate_table(sentiment_list,data_table_attributes);
 			// embed table html in a div
-			var div_div_sentiment = s_util.dom_util.embed_element("div",div_sentiment_table,{"class":"news_table"});
+			var div_div_sentiment = s_util.dom_util.embed_element("div",div_sentiment_table,{"class":"nlp_table"});
 
 			// combine title & table div
 			var div_sentiment_combined = s_util.dom_util.combine_elements([div_sentiment_title,div_div_sentiment]);
-			var div_Sentiment = s_util.dom_util.embed_element("div",div_sentiment_combined,{"class":"item_box"});
+			var div_Sentiment = s_util.dom_util.embed_element("div",div_sentiment_combined,{"class":"card_level2"});
 
 			// ********************
 
@@ -274,15 +281,15 @@ function generate_html_from_data(data) {
 			}
 
 			// title div 
-			var div_entity_title = s_util.dom_util.embed_element("div","Entities mentioned in this article",{"class":"titlebar2"});
+			var div_entity_title = s_util.dom_util.embed_element("div","Entities mentioned in this article",{"class":"nlp_heading"});
 
 			// table div
 			var div_entity_table = s_util.dom_util.generate_table(entites_list,data_table_attributes);
-			var div_div_entity = s_util.dom_util.embed_element("div",div_entity_table,{"class":"news_table"});
+			var div_div_entity = s_util.dom_util.embed_element("div",div_entity_table,{"class":"nlp_table"});
 
 			// title + table
 			var div_entity_combined = s_util.dom_util.combine_elements([div_entity_title,div_div_entity]);
-			var div_entity = s_util.dom_util.embed_element("div",div_entity_combined,{"class":"item_box"});
+			var div_entity = s_util.dom_util.embed_element("div",div_entity_combined,{"class":"card_level2"});
 
 			// ********************
 
@@ -306,15 +313,15 @@ function generate_html_from_data(data) {
 			}
 
 			// title
-			var div_concept_title = s_util.dom_util.embed_element("div","Topics mentioned in this article",{"class":"titlebar2"});
+			var div_concept_title = s_util.dom_util.embed_element("div","Topics mentioned in this article",{"class":"nlp_heading"});
 
 			// table
 			var div_concept_table = s_util.dom_util.generate_table(concept_list,data_table_attributes);
-			var div_div_concept = s_util.dom_util.embed_element("div",div_concept_table,{"class":"news_table"});
+			var div_div_concept = s_util.dom_util.embed_element("div",div_concept_table,{"class":"nlp_table"});
 
 			// title + table
 			var div_concept_combined = s_util.dom_util.combine_elements([div_concept_title,div_div_concept]);
-			var div_concept = s_util.dom_util.embed_element("div",div_concept_combined,{"class":"item_box"});
+			var div_concept = s_util.dom_util.embed_element("div",div_concept_combined,{"class":"card_level2"});
 
 			// ********************
 
@@ -337,25 +344,25 @@ function generate_html_from_data(data) {
 			}
 
 			// title
-			var div_taxonomy_title = s_util.dom_util.embed_element("div","Classification of this article",{"class":"titlebar2"});
+			var div_taxonomy_title = s_util.dom_util.embed_element("div","Classification of this article",{"class":"nlp_heading"});
 
 			// table
 			var div_taxonomy_table = s_util.dom_util.generate_table(taxonomy_list,data_table_attributes);
-			var div_div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_table,{"class":"news_table"});
+			var div_div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_table,{"class":"nlp_table"});
 
 			// title + table
 			var div_taxonomy_combined = s_util.dom_util.combine_elements([div_taxonomy_title,div_div_taxonomy]);
-			var div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_combined,{"class":"item_box"});
+			var div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_combined,{"class":"card_level2"});
 
 			// ********************
 
 			// combine sentiment , entity ,concept  and taxonomy to one div (analysis div)
 			var div_combined_analysis = s_util.dom_util.combine_elements([div_Sentiment,div_entity,div_concept,div_taxonomy]);
-			var div_div_combined_analysis = s_util.dom_util.embed_element("div",div_combined_analysis,{"class":"analysis collapse","id":id_sentiment_div});
+			var div_div_combined_analysis = s_util.dom_util.embed_element("div",div_combined_analysis,{"class":"nlp_data collapse","id":id_sentiment_div});
 
 			// now combine title intro and analyis tags
 			var combined_inner_doc_div = s_util.dom_util.combine_elements([div_title,div_intro,div_div_combined_analysis]);
-			var div_doc = s_util.dom_util.embed_element("div",combined_inner_doc_div,{"class":"l3"});
+			var div_doc = s_util.dom_util.embed_element("div",combined_inner_doc_div,{"class":"card_level1"});
 
 			// place result in an array
 			doc_divs[doc_index] = div_doc;
@@ -371,6 +378,8 @@ function generate_html_from_data(data) {
 		return combined_docs_divs;
 	}else{
 		console.log("docs not Present in reponse !!!");
+		console.log(data);
+		error_handle_show_demo_data();
 		return;
 	}
 }
@@ -419,11 +428,6 @@ function main_function(){
 	// add listener on search button
 	$('#querySubmit').click(search_button_click_listener);
 
-	// time being load data & display
-	// news_html = generate_html_from_data(sample_data_1);
-	// $("#news_div").html(news_html);
-
-
 }
 
 
@@ -435,8 +439,25 @@ function show_dailog(title,body){
 
 //test function
 function test_function(){
-	show_dailog("this is title","this is body!!!!!!!!");
+	
+	//hide news div
+	// $("#news_div").hide();
+
+	// init date picker
+	init_date_picker();
+
+	// add listener on search button
+	$('#querySubmit').click(search_button_click_listener);
+
+	// time being load data & display
+	news_html = generate_html_from_data(sample_data_1);
+	$("#news_div").html(news_html);
+
+	// convert table to data table
+	$('.myDataTable').DataTable();
+
+
 }
 
-$(main_function);
-// $(test_function);
+// $(main_function);
+$(test_function);
