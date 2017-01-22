@@ -17,7 +17,7 @@ function init_date_picker(){
 	}
 	);
 
-	var startMoment = moment().subtract(10, "days");
+	var startMoment = moment().subtract(1, "days");
 	var endMoment = moment();
 
 	$('#inputDateRange').data('daterangepicker').setStartDate(startMoment);
@@ -43,38 +43,77 @@ function get_time() {
 
 // this function will handle search button click
 function search_button_click_listener(){
-	var inputs = grap_inputs();
-	console.log(inputs);
-	var link = make_link(inputs);
-	// console.log(link);
+
+	//perform validations on inputs
+	var isValid = perform_validation_on_inputs();
+
+	if(isValid){
+
+		//extract input from fields
+		var inputs = grap_inputs();
+		console.log(inputs);
+
+		// generate link from input
+		var link = make_link(inputs);
+		console.log(link);
+
+		// make ajax request to ibm server
+		make_ajax_request(link);
+		// ajax_callback_success(sample_data_1);
+	}
+	
+}
+
+function make_ajax_request(_link){
+
+	console.log("here in ajax");
+	console.log(_link);
+
+	$.ajax({
+		type:"GET",
+		url:_link, 
+		success:ajax_callback_success,
+		error:ajax_callback_success,
+		dataType: "json"
+	});
+
+}
+
+function ajax_callback_success(data){
+
+	//clear html
+	$("#news_div").html();
+
+	//parse result and set new html
+	var news_html = generate_html_from_data(data);
+	$("#news_div").html(news_html);
+
+	// show div news
+	$("#news_div").show();
+}
+
+function ajax_callback_fail(data){
+	console.log("ajax request fail!!!");
+
+	//hide news div
+	$("#news_div").hide();
+}
+
+//perform validation on inputs
+function perform_validation_on_inputs(){
+
+	return true;
 }
 
 // this function will create link from inputs
 function make_link(inputs){
-	var api_key="apikey";
 
-	var params = {
-		"apikey":api_key,
-		"return":['enriched.url.title','enriched.url.url',"enriched.url.author","enriched.url.entities","enriched.url.docSentiment","enriched.url.concepts","enriched.url.taxonomy"],
-		"start":inputs.startTime.toString(),
-		"end":inputs.endTime.toString(),
-		"q.enriched.url.entities.entity":{
-			"text":inputs.searchItem,
-			"type":inputs.mentionedAs
-		},
-		"q.enriched.url.docSentiment.type":inputs.sentiment,
-		"q.enriched.url.taxonomy.taxonomy_.label":inputs.taxonomy,
-		"count":25,
-		"outputMode":"json"
-	}
+	var api_key="318afcbce7a6f92f3faf83dc03b38d20b3d9b8ed";
 
-	// console.log($.param(params,true));
+	var _url = "https://access.alchemyapi.com/calls/data/GetNews?apikey="+api_key+"&return=enriched.url.title,enriched.url.url,enriched.url.author,enriched.url.publicationDate,enriched.url.entities,enriched.url.docSentiment,enriched.url.concepts,enriched.url.taxonomy&start="+inputs.startTime.toString()+"&end="+inputs.endTime.toString()+"&q.enriched.url.entities.entity=|text="+inputs.searchItem+",type="+inputs.mentionedAs+"|&q.enriched.url.docSentiment.type="+inputs.sentiment+"&q.enriched.url.taxonomy.taxonomy_.label="+inputs.taxonomy+"&count=2&outputMode=json";
+	var _url_encoded = _url.replace(/ /g,"\%20");
 
-	console.log($(params).serialize());
-
-
-
-	return "template";
+	return _url_encoded;
 
 }
 
@@ -340,6 +379,9 @@ function grap_inputs(){
 // main function execution will start from here on dom ready
 function main_function(){
 
+	//hide news div
+	$("#news_div").hide();
+
 	// init date picker
 	init_date_picker();
 
@@ -347,10 +389,14 @@ function main_function(){
 	$('#querySubmit').click(search_button_click_listener);
 
 	// time being load data & display
-	news_html = generate_html_from_data(sample_data_1);
-	$("#news_div").html(news_html);
+	// news_html = generate_html_from_data(sample_data_1);
+	// $("#news_div").html(news_html);
+
 
 }
+
+
+
 
 //test function
 function test_function(){

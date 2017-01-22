@@ -7,7 +7,23 @@ https://access.alchemyapi.com/calls/data/GetNews?apikey=318afcbce7a6f92f3faf83dc
 
 
 
+https://access.alchemyapi.com/calls/data/GetNews?apikey=318afcbce7a6f92f3faf83dc03b38d20b3d9b8ed&return=enriched.url.title,enriched.url.url,enriched.url.author,enriched.url.publicationDate,enriched.url.entities,enriched.url.docSentiment,enriched.url.concepts,enriched.url.taxonomy&start=1483232400&end=1483272000&q.enriched.url.entities.entity=|text=Toyo%20tire,type=person|&q.enriched.url.docSentiment.type=positive&q.enriched.url.taxonomy.taxonomy_.label=art%20and%20entertainment&count=25&outputMode=json
 
+
+https://access.alchemyapi.com/calls/data/GetNews?apikey=318afcbce7a6f92f3faf83dc03b38d20b3d9b8ed&return=enriched.url.title,enriched.url.url,enriched.url.author,enriched.url.publicationDate,enriched.url.entities,enriched.url.docSentiment,enriched.url.concepts,enriched.url.taxonomy&start=1485093600&end=1485126000&q.enriched.url.entities.entity=|text=Indus%20valley%20partners,type=company|&q.enriched.url.docSentiment.type=positive&q.enriched.url.taxonomy.taxonomy_.label=technology%20and%20computing&count=25&outputMode=json
+
+
+	var params = {
+		"apikey":api_key,
+		"return":'enriched.url.title,enriched.url.url,enriched.url.author,enriched.url.entities,enriched.url.docSentiment,enriched.url.concepts,enriched.url.taxonomy',
+		"start":inputs.startTime.toString(),
+		"end":inputs.endTime.toString(),
+		"q.enriched.url.entities.entity": "|text"+inputs.searchItem+"type"+inputs.mentionedAs+"|",
+		"q.enriched.url.docSentiment.type":inputs.sentiment,
+		"q.enriched.url.taxonomy.taxonomy_.label":inputs.taxonomy,
+		"count":25,
+		"outputMode":"json"
+	}
 
 
 
