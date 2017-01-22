@@ -20,7 +20,6 @@
 	<!-- this project specific -->
 	<link rel="stylesheet" href="css/alchemy.css">
 	<script src="js/alchemy.js"></script>
-
 </head>
 <body>
 	<div class="l1">
@@ -28,91 +27,37 @@
 		<div class="l2"> <h1 align="center">IVP Search Engine</h1> </div>
 
 		<div class="l2">
-			<div class="step-one-container">
-				<div class="find-container col-xs-12">
 
-					<div class="row">
-						<div class="col-xs-3"></div>
-						<div class="col-xs-3">Date Range</div>
-						<input id="inputDateRange" name="inputDateRange" type="text" class="input-sm">
-					</div>
-					
+			<div class="search_guide_intro_div">
 
-					<div class="row">
-						<div class="col-xs-3"></div>
-						<div class="col-xs-3">where</div>
-						<input id="inputEntity" type="text" name="inputEntity"
-						placeholder="IBM" value="IBM" class="input-sm">
-					</div>
+				<span class="search_guide_text">Search millions of news and blog articles over</span>
+				<input id="inputDateRange" class="search_guide_input_text" name="inputDateRange" type="text" size="33">
 
-					<div class="row">
-						<div class="col-xs-3"></div>
-						<div class="col-xs-3">is mentioned</div>
-						<select id="selectEntityType" name="selectEntityType"
-						class="input-sm"><option value="free text">anywhere</option>
-						<option value="person">as a Person</option>
-						<option value="city">as a City</option>
-						<option value="company" selected="selected">as a Company</option>
-						<option value="organization">as an Organization</option></select>
-					</div>
-					<div class="row">
-						<div class="col-xs-3"></div>
-						<div class="col-xs-3">and the Sentiment is</div>
-						<select id="selectSentiment" name="selectSentiment"
-						class="input-sm"><option value="any">Any</option>
-						<option value="positive" selected="selected">Positive</option>
-						<option value="negative">Negative</option>
-						<option value="neutral">Neutral</option></select>
-					</div>
-					<div class="row">
-						<div class="col-xs-3"></div>
-						<div class="col-xs-3">where the Taxonomy is</div>
-						<select id="selectCategory" name="selectCategory" class="input-sm"><option value="any">Any</option>
-							<option value="art and entertainment">Art and Entertainment</option>
-							<option value="automotive and vehicles">Automotive and Vehicles</option>
-							<option value="business and industrial">Business and Industrial</option>
-							<option value="careers">Careers</option>
-							<option value="education">Education</option>
-							<option value="family and parenting">Family and Parenting</option>
-							<option value="finance">Finance</option>
-							<option value="food and drink">Food and Drink</option>
-							<option value="health and fitness">Health and Fitness</option>
-							<option value="hobbies and interests">Hobbies and Interests</option>
-							<option value="home and garden">Home and Garden</option>
-							<option value="law, govt and politics">Law, Government and Politics</option>
-							<option value="news">News</option>
-							<option value="pets">Pets</option>
-							<option value="real estate">Real Estate</option>
-							<option value="religion and spirituality">Religion and Spirituality</option>
-							<option value="science">Science</option>
-							<option value="shopping">Shopping</option>
-							<option value="society">Society</option>
-							<option value="sports">Sports</option>
-							<option value="style and fashion">Style and Fashion</option>
-							<option value="technology and computing" selected="selected">Technology and Computing</option>
-							<option value="travel">Travel</option></select>
-						</div>
+				<span class="search_guide_text">where</span>
+				<input id="inputEntity" class="search_guide_input_text" type="text" placeholder="Search Query" size="33">
 
-					</div>
+				<span class="search_guide_text">is mentioned</span>
+				<select id="selectEntityType" class="search_guide_input_select" ><option value="free text">anywhere</option> <option value="person">as a Person</option> <option value="city">as a City</option> <option value="company" selected="selected">as a Company</option> <option value="organization">as an Organization</option></select>
 
-					<div class="row"><div class="col-xs-3"><br /></div></div>
+				<span class="search_guide_text"  >and the Sentiment is</span>
+				<select id="selectSentiment" class="search_guide_input_select" ><option value="any">Any</option> <option value="positive" selected="selected">Positive</option> <option value="negative">Negative</option> <option value="neutral">Neutral</option></select>
 
-					<div class="row text-center">
-						<button id="querySubmit" class="btn btn-info">Search !!!</button>
-					</div>
-
-					
-
-				</div>
+				<span class="search_guide_text">where the Taxonomy is</span>
+				<select id="selectCategory" class="search_guide_input_select" ><option value="any">Any</option> <option value="art and entertainment">Art and Entertainment</option> <option value="automotive and vehicles">Automotive and Vehicles</option> <option value="business and industrial">Business and Industrial</option> <option value="careers">Careers</option> <option value="education">Education</option> <option value="family and parenting">Family and Parenting</option> <option value="finance">Finance</option> <option value="food and drink">Food and Drink</option> <option value="health and fitness">Health and Fitness</option> <option value="hobbies and interests">Hobbies and Interests</option> <option value="home and garden">Home and Garden</option> <option value="law, govt and politics">Law, Government and Politics</option> <option value="news">News</option> <option value="pets">Pets</option> <option value="real estate">Real Estate</option> <option value="religion and spirituality">Religion and Spirituality</option> <option value="science">Science</option> <option value="shopping">Shopping</option> <option value="society">Society</option> <option value="sports">Sports</option> <option value="style and fashion">Style and Fashion</option> <option value="technology and computing" selected="selected">Technology and Computing</option> <option value="travel">Travel</option></select>
 
 			</div>
 
-			<!-- will populate news here -->
-			<div class="l2" id="news_div"> </div>
-
+			<div class="search_guide_button_div">
+				<button id="querySubmit" class="search_guide_button" >Search !!!</button>
+			</div>
 
 		</div>
-	</body>
+
+		<!-- will populate news here -->
+		<div class="l2" id="news_div"> </div>
+
+	</div>
+</body>
 </html>
 
 
