@@ -51,23 +51,23 @@ function search_button_click_listener(){
 
 		//extract input from fields
 		var inputs = grap_inputs();
-		console.log(inputs);
+		// console.log(inputs);
 
 		// generate link from input
 		var link = make_link(inputs);
-		console.log(link);
+		// console.log(link);
 
 		// make ajax request to ibm server
-		make_ajax_request(link);
-		// ajax_callback_success(sample_data_1);
+		// make_ajax_request(link);
+		ajax_callback_success(sample_data_1);
 	}
 	
 }
 
 function make_ajax_request(_link){
 
-	console.log("here in ajax");
-	console.log(_link);
+	// console.log("here in ajax");
+	// console.log(_link);
 
 	$.ajax({
 		type:"GET",
@@ -90,6 +90,9 @@ function ajax_callback_success(data){
 
 	// show div news
 	$("#news_div").show();
+
+	// convert table to data table
+	$('.myDataTable').DataTable();
 }
 
 function ajax_callback_fail(data){
@@ -135,6 +138,13 @@ function generate_html_from_data(data) {
 
 		// container to hold add news div 
 		var doc_divs = [];
+
+		// attributes for data table
+		var data_table_attributes={
+			"class" : "myDataTable display",
+			"cellspacing":"0",
+			"width":"100%"
+		}
 
 		// docs contains news info
 		// each doc represent one news
@@ -202,7 +212,7 @@ function generate_html_from_data(data) {
 			var div_sentiment_title = s_util.dom_util.embed_element("div","Sentiment of this article",{"class":"titlebar2"});
 
 			// generate html of table
-			var div_sentiment_table = s_util.dom_util.generate_table(sentiment_list);
+			var div_sentiment_table = s_util.dom_util.generate_table(sentiment_list,data_table_attributes);
 			// embed table html in a div
 			var div_div_sentiment = s_util.dom_util.embed_element("div",div_sentiment_table,{"class":"news_table"});
 
@@ -246,7 +256,7 @@ function generate_html_from_data(data) {
 			var div_entity_title = s_util.dom_util.embed_element("div","Entities mentioned in this article",{"class":"titlebar2"});
 
 			// table div
-			var div_entity_table = s_util.dom_util.generate_table(entites_list);
+			var div_entity_table = s_util.dom_util.generate_table(entites_list,data_table_attributes);
 			var div_div_entity = s_util.dom_util.embed_element("div",div_entity_table,{"class":"news_table"});
 
 			// title + table
@@ -278,7 +288,7 @@ function generate_html_from_data(data) {
 			var div_concept_title = s_util.dom_util.embed_element("div","Topics mentioned in this article",{"class":"titlebar2"});
 
 			// table
-			var div_concept_table = s_util.dom_util.generate_table(concept_list);
+			var div_concept_table = s_util.dom_util.generate_table(concept_list,data_table_attributes);
 			var div_div_concept = s_util.dom_util.embed_element("div",div_concept_table,{"class":"news_table"});
 
 			// title + table
@@ -309,7 +319,7 @@ function generate_html_from_data(data) {
 			var div_taxonomy_title = s_util.dom_util.embed_element("div","Classification of this article",{"class":"titlebar2"});
 
 			// table
-			var div_taxonomy_table = s_util.dom_util.generate_table(taxonomy_list);
+			var div_taxonomy_table = s_util.dom_util.generate_table(taxonomy_list,data_table_attributes);
 			var div_div_taxonomy = s_util.dom_util.embed_element("div",div_taxonomy_table,{"class":"news_table"});
 
 			// title + table
@@ -333,13 +343,13 @@ function generate_html_from_data(data) {
 
 		}
 
-		console.log("done with generating html of result !!!")
+		// console.log("done with generating html of result !!!")
 
 		// combine all divs of article
 		var combined_docs_divs = s_util.dom_util.combine_elements(doc_divs);
 		return combined_docs_divs;
 	}else{
-		console.log("docs not Present !!!");
+		console.log("docs not Present in reponse !!!");
 		return;
 	}
 }
@@ -400,7 +410,7 @@ function main_function(){
 
 //test function
 function test_function(){
-
+	$("#main_title").dialog();
 }
 
 
