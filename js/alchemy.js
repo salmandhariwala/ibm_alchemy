@@ -64,6 +64,7 @@ function search_button_click_listener(){
 	
 }
 
+// this function will call ibm server and fetch news
 function make_ajax_request(_link){
 
 	// console.log("here in ajax");
@@ -79,6 +80,7 @@ function make_ajax_request(_link){
 
 }
 
+// sucess handler of ajax call
 function ajax_callback_success(data){
 
 	//clear html
@@ -95,6 +97,7 @@ function ajax_callback_success(data){
 	$('.myDataTable').DataTable();
 }
 
+// faiilure handler of ajax call
 function ajax_callback_fail(data){
 	console.log("ajax request fail!!!");
 
@@ -104,6 +107,24 @@ function ajax_callback_fail(data){
 
 //perform validation on inputs
 function perform_validation_on_inputs(){
+
+	var inputs = grap_inputs();
+
+	if(inputs.searchItem == ''){
+		show_dailog("search entity is blank","please enter valid search entry");
+		return false;
+	}
+
+	console.log(inputs.endTime);
+	console.log(inputs.startTime);
+	console.log(inputs.endTime-inputs.startTime);
+	console.log(1 * 24 * 60 * 60 * 1000);
+
+	if((inputs.endTime-inputs.startTime) > 1 * 24 * 60 * 60){
+		show_dailog("Date range is too large !","This api charge on the basis of time span of search thus for demo purpose restricting news search to one day(24 hrs) range");
+		return false;
+	}
+
 
 	return true;
 }
@@ -406,13 +427,16 @@ function main_function(){
 }
 
 
-
+function show_dailog(title,body){
+	$("#dialogBox").attr("title",title);
+	$("#dialogBox").html(body);
+	$("#dialogBox").dialog();
+}
 
 //test function
 function test_function(){
-	$("#main_title").dialog();
+	show_dailog("this is title","this is body!!!!!!!!");
 }
-
 
 $(main_function);
 // $(test_function);
